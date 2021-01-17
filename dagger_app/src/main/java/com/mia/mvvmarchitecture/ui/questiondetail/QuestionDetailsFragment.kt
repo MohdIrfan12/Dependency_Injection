@@ -40,7 +40,7 @@ class QuestionDetailsFragment : BaseFragment(), QuestionDetailView.Listener,
 
     @Inject
     lateinit var mViewModelProviderFactory: ViewModelProviderFactory
-    lateinit var mPermissionsHelper: FragmentPermissionsHelper
+    private var mPermissionsHelper: FragmentPermissionsHelper?=null
     private lateinit var mView: QuestionDetailView
     private lateinit var mQuestionDetailViewModel: QuestionDetailViewModel
 
@@ -69,14 +69,14 @@ class QuestionDetailsFragment : BaseFragment(), QuestionDetailView.Listener,
     override fun onStart() {
         super.onStart()
         mView.registerLister(this)
-        mPermissionsHelper.addObserver(this)
+        mPermissionsHelper?.addObserver(this)
         mQuestionDetailViewModel.attachObserver(this)
     }
 
     override fun onStop() {
         super.onStop()
         mView.unregisterListener(this)
-        mPermissionsHelper.removeObserver(this)
+        mPermissionsHelper?.removeObserver(this)
         mQuestionDetailViewModel.removeObserver()
     }
 
@@ -113,7 +113,7 @@ class QuestionDetailsFragment : BaseFragment(), QuestionDetailView.Listener,
     }
 
     override fun onLocationRequestClicked() {
-        mPermissionsHelper.checkAndRequestPremission(
+        mPermissionsHelper?.checkAndRequestPremission(
             Manifest.permission.WRITE_EXTERNAL_STORAGE,
             REQUEST_CODE
         )
@@ -124,6 +124,6 @@ class QuestionDetailsFragment : BaseFragment(), QuestionDetailView.Listener,
         permissions: Array<String>,
         grantResults: IntArray
     ) {
-        mPermissionsHelper.onRequestPermissionsResult(requestCode, permissions, grantResults)
+        mPermissionsHelper?.onRequestPermissionsResult(requestCode, permissions, grantResults)
     }
 }

@@ -4,6 +4,7 @@ import android.content.Context
 import android.view.LayoutInflater
 import androidx.fragment.app.FragmentActivity
 import androidx.fragment.app.FragmentManager
+import com.mia.mvvmarchitecture.common.dependencyInjection.app.AppComponent
 import com.mia.mvvmarchitecture.ui.common.fragmentframehelper.FragmentFrameHelper
 import com.mia.mvvvmcarchitecture.common.eventbus.EventBus
 import com.mia.mvvvmcarchitecture.networking.StackoverflowApi
@@ -15,7 +16,7 @@ import dagger.Component
  * Created by Mohd Irfan on 18/01/21.
  */
 @ActivityScope
-@Component(modules = [ActivityModule::class])
+@Component(dependencies = [AppComponent::class], modules = [ActivityModule::class])
 interface ActivityComponent {
 
     fun getStackOverFlowApi(): StackoverflowApi

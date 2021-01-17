@@ -4,7 +4,6 @@ import android.content.Context
 import android.view.LayoutInflater
 import androidx.fragment.app.FragmentActivity
 import androidx.fragment.app.FragmentManager
-import com.mia.mvvmarchitecture.common.dependencyInjection.app.AppComponent
 import com.mia.mvvmarchitecture.ui.common.fragmentframehelper.FragmentFrameHelper
 import com.mia.mvvmarchitecture.ui.common.fragmentframehelper.FragmentFrameWrapper
 import com.mia.mvvvmcarchitecture.ui.common.controllers.BackPressDispatcher
@@ -18,15 +17,8 @@ import dagger.Provides
  */
 @Module
 class ActivityModule(
-    private val mActivity: FragmentActivity,
-    private val mAppComponent: AppComponent
+    private val mActivity: FragmentActivity
 ) {
-
-    @Provides
-    fun getStackOverFlowApi() = mAppComponent.getStackOverFlowApi()
-
-    @Provides
-    fun getEventBus() = mAppComponent.getEventBus()
 
     @Provides
     fun getActivity() = mActivity

@@ -1,3 +1,4 @@
 /.gradle/
 /.idea/
 /build/
+/dagger_app/build/
