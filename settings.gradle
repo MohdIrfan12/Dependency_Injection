@@ -1,0 +1,3 @@
+include ':pure_di_app'
+include ':dagger_app'
+rootProject.name = "Dependency_Injection"
