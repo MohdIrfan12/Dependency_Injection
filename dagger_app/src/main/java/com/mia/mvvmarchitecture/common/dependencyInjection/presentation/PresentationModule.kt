@@ -6,6 +6,7 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentManager
 import com.mia.mvvmarchitecture.networking.EndpointFactory
 import com.mia.mvvmarchitecture.questions.UsecaseFactory
+import com.mia.mvvvmcarchitecture.common.permissions.FragmentPermissionsHelper
 import com.mia.mvvvmcarchitecture.networking.StackoverflowApi
 import com.mia.mvvvmcarchitecture.ui.common.ViewFactory
 import com.mia.mvvvmcarchitecture.ui.common.dialogs.DialogsManager
@@ -19,10 +20,8 @@ import dagger.Provides
  */
 
 @Module
-class PresentationModule(private val fragment: Fragment?) {
+class PresentationModule() {
 
-    @Provides
-    fun getFragment() = fragment
 
     @Provides
     fun getViewFactory(layoutInflater: LayoutInflater) = ViewFactory(layoutInflater)
@@ -31,9 +30,11 @@ class PresentationModule(private val fragment: Fragment?) {
     internal fun getMessageDisplayer(context: Context) = ToastHelper(context)
 
     @Provides
-    fun getDialogsManager(context: Context, fragmentManager: FragmentManager) =
-        DialogsManager(context, fragmentManager)
+    @PresentationScope
+    fun getFragmentPermissionsHelper(fragment: Fragment?) = FragmentPermissionsHelper(fragment)
 
+    @Provides
+    fun getDialogsManager(context: Context, fragmentManager: FragmentManager) = DialogsManager(context, fragmentManager)
 
     @Provides
     fun getUsecaseFactory(endpointFactory: EndpointFactory) = UsecaseFactory(endpointFactory)

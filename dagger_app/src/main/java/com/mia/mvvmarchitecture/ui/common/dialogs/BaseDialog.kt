@@ -23,6 +23,10 @@ abstract class BaseDialog : DialogFragment() {
     }
 
     protected val presentationComponent by lazy {
-        activityComponent.newPresentationComponent(PresentationModule(this), ViewModelModule())
+        activityComponent.newPresentationComponent()
+            .fragment(this)
+            .presentationModule(PresentationModule())
+            .viewModelModule(ViewModelModule())
+            .build()
     }
 }

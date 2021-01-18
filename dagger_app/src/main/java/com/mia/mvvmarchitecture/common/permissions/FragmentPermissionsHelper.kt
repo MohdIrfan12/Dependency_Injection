@@ -13,8 +13,7 @@ import javax.inject.Inject
  * Created by Mohd Irfan
  * on 01/01/21.
  */
-@PresentationScope
-class FragmentPermissionsHelper @Inject constructor( val mFragment: Fragment?) :
+class FragmentPermissionsHelper(val mFragment: Fragment?) :
     BaseObservable<FragmentPermissionsHelper.Listener>() {
 
     interface Listener {
