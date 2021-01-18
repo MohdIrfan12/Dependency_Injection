@@ -4,7 +4,6 @@ import androidx.appcompat.app.AppCompatActivity
 import com.mia.mvvvmcarchitecture.common.CommonApplication
 import com.mia.mvvmarchitecture.common.dependencyInjection.activity.ActivityModule
 import com.mia.mvvmarchitecture.common.dependencyInjection.activity.DaggerActivityComponent
-import com.mia.mvvmarchitecture.common.dependencyInjection.presentation.DaggerPresentationComponent
 import com.mia.mvvmarchitecture.common.dependencyInjection.presentation.PresentationModule
 import com.mia.mvvmarchitecture.common.dependencyInjection.presentation.ViewModelModule
 
@@ -20,10 +19,6 @@ abstract class BaseActivity : AppCompatActivity() {
     }
 
     protected val presentationComponent by lazy {
-        DaggerPresentationComponent.builder()
-            .activityComponent(activityComponent)
-            .presentationModule(PresentationModule())
-            .viewModelModule(ViewModelModule())
-            .build()
+        activityComponent.newPresentationComponent(PresentationModule(), ViewModelModule())
     }
 }

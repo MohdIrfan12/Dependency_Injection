@@ -4,8 +4,7 @@ import androidx.fragment.app.Fragment
 import com.mia.mvvvmcarchitecture.common.CommonApplication
 import com.mia.mvvmarchitecture.common.dependencyInjection.activity.ActivityModule
 import com.mia.mvvmarchitecture.common.dependencyInjection.activity.DaggerActivityComponent
-import com.mia.mvvmarchitecture.common.dependencyInjection.presentation.DaggerPresentationComponent
-import com.mia.mvvmarchitecture.common.dependencyInjection.presentation.PresentationModule
+ import com.mia.mvvmarchitecture.common.dependencyInjection.presentation.PresentationModule
 import com.mia.mvvmarchitecture.common.dependencyInjection.presentation.ViewModelModule
 
 /**
@@ -24,10 +23,6 @@ abstract class BaseFragment : Fragment() {
     }
 
     protected val presentationComponent by lazy {
-        DaggerPresentationComponent.builder()
-            .activityComponent(activityComponent)
-            .presentationModule(PresentationModule())
-            .viewModelModule(ViewModelModule())
-            .build()
+        activityComponent.newPresentationComponent(PresentationModule(), ViewModelModule())
     }
 }
