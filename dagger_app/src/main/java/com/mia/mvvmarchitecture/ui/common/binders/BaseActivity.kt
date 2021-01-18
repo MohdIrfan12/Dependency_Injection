@@ -19,6 +19,6 @@ abstract class BaseActivity : AppCompatActivity() {
     }
 
     protected val presentationComponent by lazy {
-        activityComponent.newPresentationComponent(PresentationModule(), ViewModelModule())
+        activityComponent.newPresentationComponent(PresentationModule(null), ViewModelModule())
     }
 }

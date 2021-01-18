@@ -13,10 +13,6 @@ import dagger.Component
 @ActivityScope
 @Component(dependencies = [AppComponent::class], modules = [ActivityModule::class])
 interface ActivityComponent {
-    fun getScreenNavigator(): ScreenNavigatior
-
-    fun newPresentationComponent(
-        module: PresentationModule,
-        viewModelModule: ViewModelModule
-    ): PresentationComponent
+    fun newPresentationComponent(module: PresentationModule,
+        viewModelModule: ViewModelModule): PresentationComponent
 }

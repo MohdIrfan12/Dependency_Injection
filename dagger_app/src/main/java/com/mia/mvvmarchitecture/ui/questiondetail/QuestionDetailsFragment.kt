@@ -40,7 +40,9 @@ class QuestionDetailsFragment : BaseFragment(), QuestionDetailView.Listener,
 
     @Inject
     lateinit var mViewModelProviderFactory: ViewModelProviderFactory
-    private var mPermissionsHelper: FragmentPermissionsHelper?=null
+    @Inject
+    lateinit var mPermissionsHelper: FragmentPermissionsHelper
+
     private lateinit var mView: QuestionDetailView
     private lateinit var mQuestionDetailViewModel: QuestionDetailViewModel
 
@@ -48,8 +50,6 @@ class QuestionDetailsFragment : BaseFragment(), QuestionDetailView.Listener,
         super.onCreate(savedInstanceState)
 
         presentationComponent.inject(this)
-
-//        mPermissionsHelper = presentationComponent
         mQuestionDetailViewModel = ViewModelProvider(
             this, mViewModelProviderFactory
         ).get(QuestionDetailViewModel::class.java)

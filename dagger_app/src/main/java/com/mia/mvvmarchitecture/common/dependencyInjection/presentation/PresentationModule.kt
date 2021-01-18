@@ -3,16 +3,13 @@ package com.mia.mvvmarchitecture.common.dependencyInjection.presentation
 import android.content.Context
 import android.view.LayoutInflater
 import androidx.fragment.app.Fragment
-import androidx.fragment.app.FragmentActivity
 import androidx.fragment.app.FragmentManager
 import com.mia.mvvmarchitecture.networking.EndpointFactory
 import com.mia.mvvmarchitecture.questions.UsecaseFactory
-import com.mia.mvvvmcarchitecture.common.permissions.FragmentPermissionsHelper
 import com.mia.mvvvmcarchitecture.networking.StackoverflowApi
 import com.mia.mvvvmcarchitecture.ui.common.ViewFactory
 import com.mia.mvvvmcarchitecture.ui.common.dialogs.DialogsManager
 import com.mia.mvvvmcarchitecture.ui.common.toasthelper.ToastHelper
-import com.mia.mvvvmcarchitecture.common.permissions.ActivityPermissionsHelper
 import dagger.Module
 import dagger.Provides
 
@@ -22,12 +19,10 @@ import dagger.Provides
  */
 
 @Module
-class PresentationModule {
+class PresentationModule(private val fragment: Fragment?) {
 
     @Provides
-    @PresentationScope
-    fun getActivityPermissionsHelper(activity: FragmentActivity) =
-        ActivityPermissionsHelper(activity)
+    fun getFragment() = fragment
 
     @Provides
     fun getViewFactory(layoutInflater: LayoutInflater) = ViewFactory(layoutInflater)
@@ -39,13 +34,9 @@ class PresentationModule {
     fun getDialogsManager(context: Context, fragmentManager: FragmentManager) =
         DialogsManager(context, fragmentManager)
 
-    @Provides
-    @PresentationScope
-    fun getFragmentPermissionsHelper(mFragment: Fragment) = FragmentPermissionsHelper(mFragment)
 
     @Provides
     fun getUsecaseFactory(endpointFactory: EndpointFactory) = UsecaseFactory(endpointFactory)
-
 
     @Provides
     fun getEndpointFactory(stackoverflowApi: StackoverflowApi) = EndpointFactory(stackoverflowApi)

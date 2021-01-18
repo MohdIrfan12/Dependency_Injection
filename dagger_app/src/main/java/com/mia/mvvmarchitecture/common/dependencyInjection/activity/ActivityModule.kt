@@ -7,7 +7,6 @@ import androidx.fragment.app.FragmentManager
 import com.mia.mvvmarchitecture.ui.common.fragmentframehelper.FragmentFrameHelper
 import com.mia.mvvmarchitecture.ui.common.fragmentframehelper.FragmentFrameWrapper
 import com.mia.mvvvmcarchitecture.ui.common.controllers.BackPressDispatcher
-import com.mia.mvvvmcarchitecture.ui.common.screensnavigator.ScreenNavigatior
 import dagger.Module
 import dagger.Provides
 
@@ -16,9 +15,7 @@ import dagger.Provides
  * on 01/01/21.
  */
 @Module
-class ActivityModule(
-    private val mActivity: FragmentActivity
-) {
+class ActivityModule(private val mActivity: FragmentActivity) {
 
     @Provides
     fun getActivity() = mActivity
@@ -45,9 +42,4 @@ class ActivityModule(
     ): FragmentFrameHelper {
         return FragmentFrameHelper(mActivity, frameWrapper, fragmentManager)
     }
-
-    @Provides
-    @ActivityScope
-    fun getScreenNavigator(fragmentFrameHelper: FragmentFrameHelper) =
-        ScreenNavigatior(fragmentFrameHelper)
 }

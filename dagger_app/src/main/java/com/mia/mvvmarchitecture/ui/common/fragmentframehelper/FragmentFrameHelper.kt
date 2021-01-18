@@ -3,8 +3,9 @@ package com.mia.mvvmarchitecture.ui.common.fragmentframehelper
 import android.app.Activity
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentManager
+import javax.inject.Inject
 
-class FragmentFrameHelper(
+class FragmentFrameHelper @Inject constructor(
     private val mActivity: Activity,
     private val mFragmentFrameWrapper: FragmentFrameWrapper,
     private val mFragmentManager: FragmentManager

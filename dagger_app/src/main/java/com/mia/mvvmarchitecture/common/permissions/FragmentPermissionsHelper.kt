@@ -5,13 +5,16 @@ import android.content.pm.PackageManager
 import androidx.core.app.ActivityCompat.shouldShowRequestPermissionRationale
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
+import com.mia.mvvmarchitecture.common.dependencyInjection.presentation.PresentationScope
 import com.mia.mvvvmcarchitecture.common.observer.BaseObservable
+import javax.inject.Inject
 
 /**
  * Created by Mohd Irfan
  * on 01/01/21.
  */
-class FragmentPermissionsHelper(private val mFragment: Fragment) :
+@PresentationScope
+class FragmentPermissionsHelper @Inject constructor( val mFragment: Fragment?) :
     BaseObservable<FragmentPermissionsHelper.Listener>() {
 
     interface Listener {
@@ -32,13 +35,13 @@ class FragmentPermissionsHelper(private val mFragment: Fragment) :
 
     private fun hasPermission(permission: String): Boolean {
         return ContextCompat.checkSelfPermission(
-            getContext(),
+            getContext()!!,
             permission
         ) == PackageManager.PERMISSION_GRANTED
     }
 
     private fun requestPermission(permission: String, requestCode: Int) {
-        mFragment.requestPermissions(arrayOf(permission), requestCode)
+        mFragment?.requestPermissions(arrayOf(permission), requestCode)
     }
 
     fun onRequestPermissionsResult(
@@ -51,7 +54,7 @@ class FragmentPermissionsHelper(private val mFragment: Fragment) :
         if (grantResults[0] == PackageManager.PERMISSION_GRANTED) {
             notifyPermissionGranted(permission, requestCode)
         } else {
-            if (shouldShowRequestPermissionRationale(mFragment.requireActivity(), permission)) {
+            if (shouldShowRequestPermissionRationale(mFragment!!.requireActivity(), permission)) {
                 notifyPermissionDeclined(permission, requestCode)
             } else {
                 notifyPermissionDeclinedDontAskAgain(permission, requestCode)
@@ -77,7 +80,7 @@ class FragmentPermissionsHelper(private val mFragment: Fragment) :
         }
     }
 
-    private fun getContext(): Context {
-        return mFragment.requireContext()
+    private fun getContext(): Context? {
+        return mFragment?.requireContext()
     }
 }

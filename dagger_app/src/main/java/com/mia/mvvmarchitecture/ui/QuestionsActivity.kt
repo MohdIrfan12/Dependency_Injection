@@ -7,21 +7,25 @@ import com.mia.mvvmarchitecture.ui.common.fragmentframehelper.FragmentFrameWrapp
 import com.mia.mvvvmcarchitecture.ui.common.controllers.BackPressDispatcher
 import com.mia.mvvvmcarchitecture.ui.common.controllers.BackPressListener
 import com.mia.mvvvmcarchitecture.ui.common.controllers.BaseActivity
+import com.mia.mvvvmcarchitecture.ui.common.screensnavigator.ScreenNavigatior
+import javax.inject.Inject
 
 class QuestionsActivity : BaseActivity(), BackPressDispatcher, FragmentFrameWrapper {
 
+    @Inject
+    lateinit var mScreenNavigatior:ScreenNavigatior
     private lateinit var mBinding: ActivityQuestionsBinding
     private val mBackPressDispatchers = HashSet<BackPressListener>()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-
+        presentationComponent.inject(this)
         mBinding = ActivityQuestionsBinding.inflate(layoutInflater)
 
         setContentView(mBinding.root)
 
         if (savedInstanceState == null) {
-            presentationComponent.getScreenNavigator().navigateToQuestionList()
+            mScreenNavigatior.navigateToQuestionList()
         }
     }
 

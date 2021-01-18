@@ -4,13 +4,15 @@ import android.content.pm.PackageManager
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.FragmentActivity
+import com.mia.mvvmarchitecture.common.dependencyInjection.presentation.PresentationScope
 import com.mia.mvvvmcarchitecture.common.observer.BaseObservable
 
 /**
  * Created by Mohd Irfan
  * on 01/01/21.
  */
-class ActivityPermissionsHelper(private val mActivity: FragmentActivity) :
+@PresentationScope
+class ActivityPermissionsHelper constructor( val mActivity: FragmentActivity) :
     BaseObservable<ActivityPermissionsHelper.Listener>() {
 
     interface Listener {

@@ -23,6 +23,6 @@ abstract class BaseFragment : Fragment() {
     }
 
     protected val presentationComponent by lazy {
-        activityComponent.newPresentationComponent(PresentationModule(), ViewModelModule())
+        activityComponent.newPresentationComponent(PresentationModule(this), ViewModelModule())
     }
 }
